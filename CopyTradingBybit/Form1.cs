@@ -25,7 +25,7 @@ namespace CopyTradingBybit
         HttpClient clientTelegram = new HttpClient();
         DateTime baseDate = new DateTime(1970, 1, 1);
         bool signal, finished = true;
-        string userName, accessId, secretKey, alarmChatId, masterTrader, lastDate;
+        string userName, accessId, secretKey, alarmChatId, TelegramBotId, masterTrader, lastDate;
         string telStr = "";
         Dictionary<string, string> sideDict = new Dictionary<string, string>() { { "Long", "Buy" }, { "Short", "Sell" } };
         //delegate
@@ -71,8 +71,9 @@ namespace CopyTradingBybit
             accessId = res[1];
             secretKey = res[2];
             alarmChatId = res[3];
-            masterTrader = res[4];
-            lastDate = res[5];
+            TelegramBotId = res[4];
+            masterTrader = res[5];
+            lastDate = res[6];
             InitializeBrowsers();
             client.BaseAddress = new Uri("https://api.bybit.com");
             timer1.Enabled = true;
@@ -257,7 +258,7 @@ namespace CopyTradingBybit
         {
             try
             {
-                await clientTelegram.GetStringAsync("https://api.telegram.org/bot" + "2135050880:AAGNiAJdwagxVP4Y3LBsHYqgBFUxk0Hnq8A"
+                await clientTelegram.GetStringAsync("https://api.telegram.org/bot" + TelegramBotId
                             + "/sendMessage?chat_id=" + chatId
                             + "&text=ByBit" + Environment.NewLine
                             + userName + Environment.NewLine + s1);
